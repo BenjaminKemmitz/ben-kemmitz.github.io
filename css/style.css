@@ -1,3 +1,36 @@
+/* NAVIGATION BAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #111;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.nav-logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #00aaff;
+}
 :root{--accent:#0b7285;--bg:#fbfbfb;--text:#111}
 body{font-family:system-ui,Arial,Helvetica,sans-serif;color:var(--text);background:var(--bg);margin:0}
 .container{max-width:980px;margin:0 auto;padding:18px}
