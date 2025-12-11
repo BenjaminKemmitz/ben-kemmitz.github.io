@@ -1,1 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>FAST Detector</title></head>
+<body>
+<h1>FAST Corner Detector</h1>
+<p>FAST detects corners by comparing circle‑of‑pixels intensities around a candidate pixel.</p>
+<pre>
+import cv2
 
+
+def fast_detector(img):
+fast = cv2.FastFeatureDetector_create()
+return fast.detect(img,None)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
