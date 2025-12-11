@@ -1,1 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Shi‑Tomasi</title></head>
+<body>
+<h1>Shi‑Tomasi Good Features to Track</h1>
+<p>Shi‑Tomasi improves Harris by selecting corners with maximum minimum eigenvalues.</p>
+<pre>
+import cv2
 
+
+def shi_tomasi(img):
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+return cv2.goodFeaturesToTrack(gray,100,0.01,10)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
