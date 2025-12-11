@@ -1,1 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>HSV Segmentation</title></head>
+<body>
+<h1>HSV Color Segmentation</h1>
+<p>HSV segmentation isolates colors by thresholding hue, saturation, and value.</p>
+<pre>
+import cv2
+import numpy as np
 
+
+def hsv_segment(img):
+hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+lower = np.array([0, 50, 50])
+upper = np.array([10, 255, 255])
+return cv2.inRange(hsv, lower, upper)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
