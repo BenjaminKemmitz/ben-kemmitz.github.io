@@ -1,1 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Canny Edge Detector</title></head>
+<body>
+<h1>Canny Edge Detector</h1>
+<p>Canny finds edges through gradient detection, non‑max suppression, and hysteresis thresholding.</p>
+<pre>
+import cv2
 
+
+def canny_edge(img):
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+return cv2.Canny(gray, 100, 200)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
