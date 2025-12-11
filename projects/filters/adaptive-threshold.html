@@ -1,1 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Adaptive Thresholding</title></head>
+<body>
+<h1>Adaptive Thresholding</h1>
+<p>Adaptive thresholding calculates a local threshold for each pixel.</p>
+<pre>
+import cv2
 
+
+def adaptive_threshold(img):
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+return cv2.adaptiveThreshold(gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,cv2.THRESH_BINARY,11,2)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
