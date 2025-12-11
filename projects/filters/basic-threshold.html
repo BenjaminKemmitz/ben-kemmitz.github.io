@@ -1,1 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Basic Thresholding</title></head>
+<body>
+<h1>Basic Thresholding</h1>
+<p>Thresholding converts grayscale images into binary images based on a fixed cutoff.</p>
+<pre>
+import cv2
 
+
+def basic_threshold(img):
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+_, t = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+return t
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
