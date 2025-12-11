@@ -1,1 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>ORB Detector</title></head>
+<body>
+<h1>ORB Feature Detector</h1>
+<p>ORB is a fast feature detector/descriptor based on FAST + BRIEF.</p>
+<pre>
+import cv2
 
+
+def orb_features(img):
+orb = cv2.ORB_create()
+return orb.detectAndCompute(img,None)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
