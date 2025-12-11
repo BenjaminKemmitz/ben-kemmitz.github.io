@@ -1,1 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Sharpen Filter</title></head>
+<body>
+<h1>Custom Sharpening Filter</h1>
+<p>A sharpening kernel enhances edges and detail in the image.</p>
+<pre>
+import cv2
+import numpy as np
 
+
+def sharpen(img):
+kernel = np.array([[0,-1,0],[-1,5,-1],[0,-1,0]])
+return cv2.filter2D(img,-1,kernel)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
