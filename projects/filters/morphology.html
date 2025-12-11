@@ -1,1 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Morphological Ops</title></head>
+<body>
+<h1>Morphological Operations</h1>
+<p>Dilation and erosion manipulate the structure of shapes in images using kernels.</p>
+<pre>
+import cv2
+import numpy as np
 
+
+def morphology_ops(img):
+kernel = np.ones((5,5), np.uint8)
+return cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
