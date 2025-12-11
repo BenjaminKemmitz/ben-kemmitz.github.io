@@ -1,1 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Laplacian Filter</title></head>
+<body>
+<h1>Laplacian Filter</h1>
+<p>The Laplacian filter detects edges by computing second‑order derivatives.</p>
+<pre>
+import cv2
 
+
+def laplacian_filter(img):
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+return cv2.Laplacian(gray, cv2.CV_64F)
+</pre>
+<a href="../index.html">← Back to Gallery</a>
+</body>
+</html>
