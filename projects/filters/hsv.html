@@ -1,20 +1,50 @@
 <!DOCTYPE html>
-<html>
-<head><meta charset="UTF-8"><title>HSV Segmentation</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hsv | OpenCV Filters</title>
+
+  <!-- Shared Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+</head>
 <body>
-<h1>HSV Color Segmentation</h1>
-<p>HSV segmentation isolates colors by thresholding hue, saturation, and value.</p>
-<pre>
-import cv2
-import numpy as np
 
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span>/</span>
+    <a href="../index.html#projects">Projects</a>
+    <span>/</span>
+    <a href="../open_cd.html">OpenCV Image Filter Suite</a>
+    <span>/</span>
+    <span class="current">Hsv</span>
+  </nav>
 
-def hsv_segment(img):
-hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-lower = np.array([0, 50, 50])
-upper = np.array([10, 255, 255])
-return cv2.inRange(hsv, lower, upper)
-</pre>
-<a href="../index.html">← Back to Gallery</a>
+  <header class="hero">
+    <h1>Hsv</h1>
+    <p>OpenCV filter demonstration and implementation details.</p>
+  </header>
+
+  <section>
+    <h2>Overview</h2>
+    <p>
+      This page documents the <strong>Hsv</strong> filter implemented using Python and OpenCV.
+      Additional explanations, equations, and code examples will be added here.
+    </p>
+  </section>
+
+  <section>
+    <h2>Example Output</h2>
+    <div class="img-placeholder">
+      <p>Image placeholder</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Benjamin Kemmitz • Computer Vision • Robotics
+  </footer>
+
 </body>
 </html>
