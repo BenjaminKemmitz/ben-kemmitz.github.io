@@ -49,6 +49,8 @@
       display: grid;
       gap: 20px;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      text-decoration: none;
+      color: inherit;
     }
     .card {
       background: #f2f2f2;
@@ -112,10 +114,11 @@
     <p>List all filters:</p>
     <pre>python main.py --list</pre>
   </section>
-
+  
   <section>
     <h2 style="text-align:center; margin-bottom:30px;">Filter Gallery</h2>
     <div class="grid">
+      <a href="nothing" class="card"><h3>Original Photo</h3><div class="img-placeholder"></div></a>
       <a href="filters/gaussian.html" class="card">
         <h3>Gaussian Blur</h3>
         <div class="img-placeholder">
