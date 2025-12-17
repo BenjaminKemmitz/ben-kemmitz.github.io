@@ -3,77 +3,139 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OpenCV Image Filter Suite</title>
+  <title>OpenCV Image Filter Suite | Benjamin Kemmitz</title>
+
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
+    :root {
+      --bg-dark: #0b1220;
+      --text-light: #e5e7eb;
+      --accent: #1e90ff;
+      --card-bg: #111827;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #ffffff;
-      color: #222;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
       line-height: 1.6;
     }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      max-width: 1100px;
+      margin: auto;
+      padding: 1.5rem 2rem 0;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .breadcrumb a {
+      color: var(--accent);
+    }
+
+    .breadcrumb .current {
+      color: #c7d2fe;
+    }
+
     header, section {
-      padding: 40px 20px;
+      padding: 4rem 2rem;
       max-width: 1100px;
       margin: auto;
     }
+
     .hero {
       text-align: center;
-      padding: 80px 20px;
-      background: #f4f4f4;
+      padding: 4rem 2rem 4rem;
     }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: auto;
+      margin-bottom: 2rem;
+      color: #c7d2fe;
+    }
+
     .btn {
       display: inline-block;
-      padding: 12px 24px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 18px;
-      margin: 10px;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      border: 1px solid var(--accent);
+      margin: 0.4rem;
     }
+
     .btn-primary {
-      background: #000;
+      background-color: var(--accent);
       color: #fff;
     }
+
     .btn-secondary {
-      background: #ddd;
-      color: #000;
+      background: transparent;
+      color: var(--accent);
     }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+    }
+
     pre {
-      background: #111;
-      color: #fff;
-      padding: 20px;
-      border-radius: 10px;
+      background-color: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 12px;
       overflow-x: auto;
+      color: #e5e7eb;
     }
+
     .grid {
       display: grid;
-      gap: 20px;
+      gap: 2rem;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
+
     .card {
-      background: #f2f2f2;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
-      height:260px;
-      text-decoration: none;
-      color: inherit;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      height: 260px;
     }
+
     .card:hover {
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(30,144,255,0.25);
     }
-    footer {
-      text-align: center;
-      padding: 40px;
-      color: #666;
-    }
+
     .img-placeholder {
       height: 160px;
-      background: #ccc;
-      border-radius: 12px;
+      background: #020617;
+      border-radius: 10px;
       margin-bottom: 12px;
-      overflow: hidden; /* CRITICAL */
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -82,28 +144,57 @@
     .img-placeholder img {
       width: 100%;
       height: 100%;
-      object-fit: cover; /* or contain — explained below */
+      object-fit: cover;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      background-color: #020617;
+    }
+
+    @media (max-width: 800px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
-    <h1>OpenCV Image Filter Suite</h1>
-    <p>A lightweight Python + OpenCV project showcasing 16 essential image-processing filters.</p>
 
-    <a href="https://github.com/BenjaminKemmitz/opencv-image-filters" class="btn btn-primary">View on GitHub</a>
-    <a href="#demo" class="btn btn-secondary">Run Demo</a>
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span>/</span>
+    <a href="../index.html#projects">Projects</a>
+    <span>/</span>
+    <span class="current">OpenCV Image Filter Suite</span>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <h1>OpenCV Image Filter Suite</h1>
+    <p>
+      A Python + OpenCV project showcasing 16 essential image-processing filters for computer vision learning and experimentation.
+    </p>
+    <div class="hero-buttons">
+      <a href="https://github.com/BenjaminKemmitz/opencv-image-filters" class="primary-btn">View on GitHub</a>
+      <a href="#gallery" class="secondary-btn">View Filters</a>
+    </div>
   </header>
 
+  <!-- OVERVIEW -->
   <section>
     <h2>Project Overview</h2>
     <p>
-      This project demonstrates 16 foundational image-processing filters using Python and OpenCV.
-      Each filter includes sample code, documentation, and before/after images to support computer vision learning.
+      This project demonstrates foundational image-processing techniques using Python and OpenCV. Each filter includes documentation, sample code, and visual results to support hands-on computer vision learning.
     </p>
   </section>
 
-  <section id="demo">
+  <!-- INSTALL -->
+  <section>
     <h2>Installation & Usage</h2>
     <p>Install dependencies:</p>
     <pre>pip install -r requirements.txt</pre>
@@ -114,109 +205,131 @@
     <p>List all filters:</p>
     <pre>python main.py --list</pre>
   </section>
-  
-  <section>
-    <h2 style="text-align:center; margin-bottom:30px;">Filter Gallery</h2>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <h2>Filter Gallery</h2>
     <div class="grid">
-      <a href="nothing" class="card"><h3>Original Photo</h3><div class="img-placeholder"></div></a>
+      <a href="nothing" class="card">
+        <h3>Original Photo</h3>
+        <div class="img-placeholder"></div>
+      </a>
+
       <a href="filters/gaussian.html" class="card">
         <h3>Gaussian Blur</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/blur_output.jpg" alt="Gaussian Blur Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/median.html" class="card">
         <h3>Median Filter</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/median_output.jpg" alt="Median Example" loading="lazy">
-        </div></a>
+        </div>
+      </a>
+
       <a href="filters/bilateral.html" class="card">
         <h3>Bilateral Filter</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/bilateral_output.jpg" alt="Bilateral Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/sobel.html" class="card">
-        <h3>Sobel Operator</h3><div class="img-placeholder">
+        <h3>Sobel Operator</h3>
+        <div class="img-placeholder">
           <img src="../assets/images/filt-img/sobel_output.jpg" alt="Sobel Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/laplacian.html" class="card">
         <h3>Laplacian Filter</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/laplacian_output.jpg" alt="Laplacian Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/canny.html" class="card">
         <h3>Canny Edge Detector</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/canny_output.jpg" alt="Canny Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/morphology.html" class="card">
         <h3>Morphological Operations</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/morphology_output.jpg" alt="Morphology Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/hsv.html" class="card">
         <h3>HSV Color Segmentation</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/hsv_output.jpg" alt="HSV Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/basic-threshold.html" class="card">
         <h3>Basic Thresholding</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/threshold_output.jpg" alt="Threshold Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/adaptive-threshold.html" class="card">
         <h3>Adaptive Thresholding</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/adaptive-threshold_output.jpg" alt="Adaptive Threshold Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/otsu.html" class="card">
         <h3>Otsu's Thresholding</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/otsu_output.jpg" alt="Otsu Threshold Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/harris.html" class="card">
         <h3>Harris Corner Detector</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/harris_output.jpg" alt="Harris Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/shi-tomasi.html" class="card">
         <h3>Shi-Tomasi Good Features</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/shi-tomasi_output.jpg" alt="Shi-Tomasi Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/orb.html" class="card">
         <h3>ORB Feature Detector</h3>
         <div class="img-placeholder">
-          <img src="../assets/images/filt-img/orb_output.jpg" alt="Orb Example" loading="lazy">
+          <img src="../assets/images/filt-img/orb_output.jpg" alt="ORB Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/fast.html" class="card">
         <h3>FAST Corner Detector</h3>
         <div class="img-placeholder">
-          <img src="../assets/images/filt-img/fast_output.jpg" alt="Fast Example" loading="lazy">
+          <img src="../assets/images/filt-img/fast_output.jpg" alt="FAST Example" loading="lazy">
         </div>
       </a>
+
       <a href="filters/sharpen.html" class="card">
         <h3>Custom Sharpening Filter</h3>
         <div class="img-placeholder">
           <img src="../assets/images/filt-img/custom_output.jpg" alt="Custom Sharpening Example" loading="lazy">
         </div>
       </a>
- 
     </div>
   </section>
 
+  <!-- STRUCTURE -->
   <section>
     <h2>Project Structure</h2>
     <pre>opencv-filters/
@@ -228,7 +341,8 @@
   </section>
 
   <footer>
-    Created by Ben Kemmitz • Robotics | Computer Vision | Python
+    Created by Ben Kemmitz • Robotics • Computer Vision • Python
   </footer>
+
 </body>
 </html>
