@@ -1,0 +1,158 @@
+
+:root {
+  --bg-dark: #0b1220;
+  --text-light: #e5e7eb;
+  --accent: #1e90ff;
+  --card-bg: #111827;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+header, section {
+  max-width: 1100px;
+  margin: auto;
+  padding: 4rem 2rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  max-width: 1100px;
+  margin: auto;
+  padding: 1.5rem 2rem 0;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.breadcrumb a {
+  color: var(--accent);
+}
+
+.breadcrumb .current {
+  color: #c7d2fe;
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  max-width: 700px;
+  margin: auto;
+  margin-bottom: 2rem;
+  color: #c7d2fe;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border-radius: 8px;
+  font-weight: 600;
+  border: 1px solid var(--accent);
+  margin: 0.4rem;
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* Sections */
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  border-left: 4px solid var(--accent);
+  padding-left: 1rem;
+}
+
+/* Cards */
+.grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 260px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(30,144,255,0.25);
+}
+
+/* Images */
+.img-placeholder {
+  height: 160px;
+  background: #020617;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.img-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Code blocks */
+pre {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  color: #e5e7eb;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  background-color: #020617;
+}
+
+@media (max-width: 800px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+}
