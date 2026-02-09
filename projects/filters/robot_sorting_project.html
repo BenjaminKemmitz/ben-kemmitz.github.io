@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vision-Guided Robotic Sorting System | Benjamin Kemmitz</title>
+
+  <link rel="icon" type="image/png" href="../favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+  
+<body>
+
+  <!-- BREADCRUMB -->
+  <nav class="breadcrumb">
+    <a href="../index.html">Home</a>
+    <span>/</span>
+    <a href="../index.html#projects">Projects</a>
+    <span>/</span>
+    <span class="current">Vision-Guided Robotic Sorting</span>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1>Vision-Guided Robotic Sorting System</h1>
+    <p>
+      A complete computer vision and robotics integration project using ArUco markers, homography mapping, and the EEZYbotARM MK2 to autonomously detect, track, and sort colored objects.
+    </p>
+    <div class="hero-buttons">
+      <a href="https://github.com/BenjaminKemmitz/vision-robot-sorting" class="btn btn-primary">View on GitHub</a>
+      <a href="#demo" class="btn btn-secondary">See Demo</a>
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section>
+    <h2>Project Overview</h2>
+    <p>
+      This system combines advanced computer vision techniques with robotic control to create an autonomous object sorting solution. Using a downward-facing camera and ArUco marker-based homography, the system accurately maps pixel coordinates to real-world millimeter positions on a workspace. Objects are detected, tracked through multiple frames, classified by color and orientation, and then picked and sorted by a 4-DOF robotic arm.
+    </p>
+    <p style="margin-top: 1rem;">
+      The project demonstrates practical applications of OpenCV, inverse kinematics, serial communication, and state machine design for real-time robotic control.
+    </p>
+  </section>
+
+  <!-- KEY FEATURES -->
+  <section>
+    <h2>Key Features</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>🎯 ArUco Homography</h3>
+        <p>Four corner markers establish precise coordinate mapping from camera pixels to workspace millimeters with sub-mm accuracy.</p>
+      </div>
+
+      <div class="card">
+        <h3>🔍 Multi-Object Tracking</h3>
+        <p>Sophisticated tracking algorithm maintains object identity across frames, handles occlusions, and manages appearance/disappearance.</p>
+      </div>
+
+      <div class="card">
+        <h3>🎨 Color Classification</h3>
+        <p>HSV-based color detection with voting system ensures accurate classification (RED, GREEN, BLUE, YELLOW) even under varying lighting.</p>
+      </div>
+
+      <div class="card">
+        <h3>📐 Orientation Detection</h3>
+        <p>Calculates object angle using minimum area rectangles with circular mean smoothing for stable rotation measurements.</p>
+      </div>
+
+      <div class="card">
+        <h3>🤖 Robot Integration</h3>
+        <p>Serial communication with Arduino-controlled EEZYbotARM using inverse kinematics for precise pick-and-place operations.</p>
+      </div>
+
+      <div class="card">
+        <h3>⚡ Real-Time Processing</h3>
+        <p>Runs at 30+ FPS with state machine logic ensuring objects are stable before picking, preventing false detections.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO -->
+  <section id="demo">
+    <h2>System Demonstration</h2>
+    <div class="grid" style="grid-template-columns: 1fr;">
+      <div class="card" style="height: auto;">
+        <h3>Workflow Pipeline</h3>
+        <ol style="margin-left: 1.5rem; margin-top: 1rem; line-height: 2;">
+          <li><strong>Detection:</strong> Camera detects colored objects on white table surface</li>
+          <li><strong>Stabilization:</strong> Objects tracked until position is stable (8 frames, <5mm variation)</li>
+          <li><strong>Classification:</strong> Color identified via HSV voting (70% majority required)</li>
+          <li><strong>Orientation:</strong> Angle locked using circular mean of last 8 measurements</li>
+          <li><strong>Queueing:</strong> Object marked ready, queued for robot pickup</li>
+          <li><strong>Pick Command:</strong> System sends <code>PICK &lt;id&gt; &lt;x&gt; &lt;y&gt; &lt;angle&gt; &lt;color&gt; &lt;target_x&gt; &lt;target_y&gt;</code></li>
+          <li><strong>Robot Execution:</strong> Arm calculates inverse kinematics, picks object, sorts to color zone</li>
+          <li><strong>Completion:</strong> Robot returns <code>DONE</code>, system removes object from tracking</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL IMPLEMENTATION -->
+  <section>
+    <h2>Technical Implementation</h2>
+    
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Computer Vision Pipeline</h3>
+    <pre>
+# ArUco Marker Detection & Homography
+detector = aruco.ArucoDetector(aruco_dict, params)
+corners, ids = detector.detectMarkers(gray)
+H, _ = cv2.findHomography(image_points, world_points)
+
+# Object Detection (HSV-based)
+hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+mask = cv2.inRange(s, 21, 255) & cv2.inRange(v, 0, 249)
+contours = cv2.findContours(mask, cv2.RETR_EXTERNAL)
+
+# Coordinate Transformation
+world_pos = cv2.perspectiveTransform(pixel_pos, H)
+    </pre>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Robot Control (Arduino)</h3>
+    <pre>
+// Inverse Kinematics Calculation
+base = atan2(y, x) * 180 / PI;
+distance = sqrt(reach² + z_adj²);
+
+// Law of Cosines for Joint Angles
+cosElbow = (L1² + L2² - d²) / (2 * L1 * L2);
+elbowAngle = acos(cosElbow) * 180 / PI;
+
+// Smooth Servo Movement
+for (int pos = current; pos <= target; pos++) {
+  servo.write(pos);
+  delay(MOVE_DELAY);
+}
+    </pre>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section>
+    <h2>System Components</h2>
+    
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Hardware</h3>
+    <ul style="margin-left: 1.5rem; line-height: 2;">
+      <li>USB Webcam (1280x720, overhead mounted)</li>
+      <li>EEZYbotARM MK2 (4-DOF robotic arm)</li>
+      <li>Arduino Uno with 4x servo motors</li>
+      <li>White table surface with ArUco corner markers</li>
+      <li>5V 3A power supply for servos</li>
+    </ul>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Software Stack</h3>
+    <ul style="margin-left: 1.5rem; line-height: 2;">
+      <li><strong>Python 3.8+</strong> - Main vision processing</li>
+      <li><strong>OpenCV 4.x</strong> - Computer vision library</li>
+      <li><strong>NumPy</strong> - Numerical computations</li>
+      <li><strong>PySerial</strong> - Arduino communication</li>
+      <li><strong>Arduino C++</strong> - Robot arm control firmware</li>
+    </ul>
+  </section>
+
+  <!-- INSTALL -->
+  <section>
+    <h2>Installation & Setup</h2>
+    
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Python Environment</h3>
+    <pre>
+# Install dependencies
+pip install opencv-python opencv-contrib-python numpy pyserial
+
+# Clone repository
+git clone https://github.com/BenjaminKemmitz/vision-robot-sorting
+cd vision-robot-sorting
+    </pre>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Arduino Setup</h3>
+    <pre>
+# Upload firmware to Arduino
+1. Open eezybot_controller.ino in Arduino IDE
+2. Calibrate arm dimensions (ARM_SHOULDER_LENGTH, ARM_ELBOW_LENGTH)
+3. Adjust servo limits (SHOULDER_MIN/MAX, ELBOW_MIN/MAX)
+4. Upload to Arduino Uno
+    </pre>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Running the System</h3>
+    <pre>
+# Configure workspace dimensions and COM port
+# Edit configuration in homography_robot_sorting.py:
+XMAX = 663.0          # Workspace width (mm)
+YMAX = 316.0          # Workspace height (mm)
+ROBOT_PORT = "COM3"   # Arduino serial port
+
+# Run the system
+python homography_robot_sorting.py
+    </pre>
+  </section>
+
+  <!-- CALIBRATION -->
+  <section>
+    <h2>Calibration Process</h2>
+    <div class="grid">
+      <div class="card" style="height: auto;">
+        <h3>1. ArUco Markers</h3>
+        <p style="margin-top: 0.5rem;">Print 4 markers (IDs 0-3) from DICT_4X4_50 dictionary. Place at table corners in clockwise order starting top-left.</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>2. Workspace Measurement</h3>
+        <p style="margin-top: 0.5rem;">Measure distances between markers in millimeters. Update XMAX and YMAX values in config.</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>3. Robot Dimensions</h3>
+        <p style="margin-top: 0.5rem;">Measure shoulder-to-elbow and elbow-to-gripper lengths. Critical for accurate inverse kinematics.</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>4. Sort Zones</h3>
+        <p style="margin-top: 0.5rem;">Define target positions for each color in SORT_ZONES dictionary. Ensure all zones are reachable by arm.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ALGORITHMS -->
+  <section>
+    <h2>Core Algorithms</h2>
+    
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Object Tracking State Machine</h3>
+    <div style="background-color: var(--card-bg); padding: 1.5rem; border-radius: 12px; margin-top: 1rem;">
+      <p><strong>STATE_NEW</strong> → Object first detected, position tracking begins</p>
+      <p style="margin-top: 0.5rem;"><strong>STATE_STABLE</strong> → Position stable for 8 frames, color voting active</p>
+      <p style="margin-top: 0.5rem;"><strong>STATE_QUEUED</strong> → Ready to pick, waiting for robot availability</p>
+      <p style="margin-top: 0.5rem;"><strong>STATE_PICKING</strong> → Robot currently executing pick sequence</p>
+      <p style="margin-top: 0.5rem;"><strong>STATE_PICKED</strong> → Successfully sorted, removed from tracking</p>
+    </div>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">Circular Angle Smoothing</h3>
+    <pre>
+def circular_mean(angles_deg):
+    """Handle 0°/180° wrapping for angle averaging"""
+    angles_rad = np.deg2rad(angles_deg)
+    sin_sum = np.mean(np.sin(angles_rad))
+    cos_sum = np.mean(np.cos(angles_rad))
+    mean = np.arctan2(sin_sum, cos_sum)
+    return np.rad2deg(mean) % 180
+    </pre>
+
+    <h3 style="margin-top: 2rem; margin-bottom: 1rem; color: #c7d2fe;">HSV Color Classification</h3>
+    <pre>
+# Hue ranges for different colors (OpenCV uses 0-180)
+if h < 10 or h > 170:    return "RED"
+elif 35 < h < 85:         return "GREEN"
+elif 100 < h < 130:       return "BLUE"
+elif 15 < h < 30:         return "YELLOW"
+    </pre>
+  </section>
+
+  <!-- PERFORMANCE -->
+  <section>
+    <h2>Performance Metrics</h2>
+    <div class="grid">
+      <div class="card" style="height: auto;">
+        <h3>⚡ Processing Speed</h3>
+        <p style="margin-top: 0.5rem; font-size: 1.5rem; color: var(--accent);">30-35 FPS</p>
+        <p style="margin-top: 0.5rem;">Real-time vision processing on standard hardware</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🎯 Position Accuracy</h3>
+        <p style="margin-top: 0.5rem; font-size: 1.5rem; color: var(--accent);">±2-3mm</p>
+        <p style="margin-top: 0.5rem;">Homography-based coordinate transformation precision</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🔄 Sort Speed</h3>
+        <p style="margin-top: 0.5rem; font-size: 1.5rem; color: var(--accent);">~15 sec/object</p>
+        <p style="margin-top: 0.5rem;">Complete pick-and-place cycle including stabilization</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>✓ Success Rate</h3>
+        <p style="margin-top: 0.5rem; font-size: 1.5rem; color: var(--accent);">95%+</p>
+        <p style="margin-top: 0.5rem;">Successful picks under optimal lighting conditions</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STRUCTURE -->
+  <section>
+    <h2>Project Structure</h2>
+    <pre>
+vision-robot-sorting/
+│
+├── homography_robot_sorting.py    # Main vision system
+├── eezybot_controller.ino         # Arduino firmware
+├── SETUP_GUIDE.md                 # Complete setup instructions
+│
+├── assets/
+│   └── aruco_markers/             # Printable ArUco markers
+│
+├── docs/
+│   ├── calibration.md             # Calibration procedures
+│   └── troubleshooting.md         # Common issues & fixes
+│
+└── requirements.txt               # Python dependencies
+    </pre>
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section>
+    <h2>Applications & Extensions</h2>
+    <div class="grid">
+      <div class="card" style="height: auto;">
+        <h3>🏭 Manufacturing</h3>
+        <p style="margin-top: 0.5rem;">Automated part sorting, quality inspection, assembly line pick-and-place</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>📚 Education</h3>
+        <p style="margin-top: 0.5rem;">Teaching computer vision, robotics, and control systems integration</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🔬 Research</h3>
+        <p style="margin-top: 0.5rem;">Vision-guided manipulation, human-robot collaboration studies</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🎮 Competitions</h3>
+        <p style="margin-top: 0.5rem;">Robotics competitions requiring autonomous object manipulation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTURE WORK -->
+  <section>
+    <h2>Future Enhancements</h2>
+    <ul style="margin-left: 1.5rem; line-height: 2;">
+      <li><strong>Machine Learning Integration:</strong> CNN-based object classification for complex shapes</li>
+      <li><strong>Multi-Arm Coordination:</strong> Parallel processing with multiple robotic arms</li>
+      <li><strong>Dynamic Object Handling:</strong> Picking moving objects with trajectory prediction</li>
+      <li><strong>3D Vision:</strong> Stereo camera setup for depth perception and stacking</li>
+      <li><strong>Web Dashboard:</strong> Real-time monitoring and remote control interface</li>
+      <li><strong>Conveyor Integration:</strong> Continuous sorting from moving belt system</li>
+    </ul>
+  </section>
+
+  <!-- CHALLENGES -->
+  <section>
+    <h2>Technical Challenges Solved</h2>
+    <div class="grid">
+      <div class="card" style="height: auto;">
+        <h3>⚙️ Angle Wrapping</h3>
+        <p style="margin-top: 0.5rem;">Implemented circular mean to properly average angles near 0°/180° boundary, preventing jitter.</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🎨 Variable Lighting</h3>
+        <p style="margin-top: 0.5rem;">HSV color space with voting system provides robust classification across lighting conditions.</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🔍 Object Persistence</h3>
+        <p style="margin-top: 0.5rem;">Distance-based matching with missed frame counter maintains tracking through brief occlusions.</p>
+      </div>
+
+      <div class="card" style="height: auto;">
+        <h3>🤖 Kinematic Limits</h3>
+        <p style="margin-top: 0.5rem;">Reachability checking prevents invalid arm commands, with graceful fallback for unreachable targets.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Created by Ben Kemmitz • Robotics • Computer Vision • Embedded Systems
+  </footer>
+
+</body>
+</html>
